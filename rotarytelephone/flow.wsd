@@ -1,0 +1,51 @@
+@startuml 
+participant phone as phone
+box
+participant dfplayer as df
+participant pi as client
+end box 
+participant server as server
+
+== Pick up handset ==
+phone -> client: off_hook
+client -> df: play 0001_dialtone.mp3
+client -> server: send "offhook"
+== dialing ==
+phone -> client: on_dialing
+client -> df: stop audio
+loop for each digit
+    loop for each dial pulse
+        phone -> client: on_pulse
+        client -> client: increment count (digit)
+    end 
+    phone -> client: digit complete
+    client -> server: send <digit>
+    server -> server: append digit to phone number being dialed
+    server -> server: start 4s timeout
+    client -> client: reset pulse count
+end
+note over server: 4s timeout complete\nno more digits
+
+== ringing (4 seconds after last digit) ==
+server -> client: play ringing
+client -> df: play 0002_ringing.mp3
+server -> server: delay 5s
+server -> server: compare
+alt no match
+  server -> client: play wrong number
+  client -> df: play 0003_wrongnumber.mp3
+else 
+  server -> server: set puzzle state to "solved"
+  server -> client: play success message
+  client -> df: play 0004_success.mp3
+
+end
+
+== on hangup ==
+phone -> client: on_hook
+client -> df: stop audio
+client -> server: send "onhook"
+server -> server: clear phone number being dialed
+
+hide footbox
+@enduml
