@@ -1,5 +1,10 @@
 # Rotary Phone Puzzle
 
+# Scenario
+1. Player picks up the phone, and dials a number (determined by clues)
+2. If the number is correct, the puzzle is solved, code is read out to player over phone speaker.
+3. Alternatively, RPI could trigger other event such as unlocking a box 
+
 ## 📝 TODO
 * Record individual digits as mp3s
 * Improve Server flow to be more like an IVR
@@ -37,9 +42,5 @@
 
 
 ## Flow
-
-1. Player picks up the phone, and dials a number (determined by clues)
-2. If the number is correct, the puzzle is solved, code is read out to player over phone speaker.
-3. Alternatively, RPI could trigger other event such as unlocking a box 
 
 ![Flow](flow.svg)
