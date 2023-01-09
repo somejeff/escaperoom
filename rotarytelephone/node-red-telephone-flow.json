@@ -1,0 +1,1074 @@
+[
+    {
+        "id": "32dcaa6a2a049c09",
+        "type": "tab",
+        "label": "Telephone",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8ce9871792fa0c4a",
+        "type": "group",
+        "z": "32dcaa6a2a049c09",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "42be5712bea4e517",
+            "536a3f976fbd1315",
+            "ee72b0527916a3ca",
+            "3c3693fb523e79a9",
+            "434bf6b842a2c02c",
+            "a11e69c25f4e2f29",
+            "c6d45545bd4e22fa",
+            "12bb201e847a0b50",
+            "d474ebe80834e6a7",
+            "8ae54fdc776bea0e"
+        ],
+        "x": 894,
+        "y": 699,
+        "w": 452,
+        "h": 302
+    },
+    {
+        "id": "1105262701080987",
+        "type": "group",
+        "z": "32dcaa6a2a049c09",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "5eb71faecf3070e8",
+            "11070754f439eb45",
+            "dd1eecf296b6c86a",
+            "fe5aa7839198e750",
+            "616c206f3e667cbc",
+            "3da4af2372a126a5"
+        ],
+        "x": 1284,
+        "y": 39,
+        "w": 462,
+        "h": 262
+    },
+    {
+        "id": "b797c0abbbd40c3e",
+        "type": "group",
+        "z": "32dcaa6a2a049c09",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "af0270a21bebebf6",
+            "525fd97cd9a9965e",
+            "69c78893799d7ed1",
+            "ef52d91ced771b54",
+            "dc411f8d9771f80e"
+        ],
+        "x": 514,
+        "y": 359,
+        "w": 372,
+        "h": 222
+    },
+    {
+        "id": "d9124b5bd3856605",
+        "type": "inject",
+        "z": "32dcaa6a2a049c09",
+        "name": "Setup",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "82c0e2e6ed5facb7"
+            ]
+        ]
+    },
+    {
+        "id": "ec2195f9977d0c8c",
+        "type": "websocket in",
+        "z": "32dcaa6a2a049c09",
+        "name": "Inbound WebSocket",
+        "server": "16133029a5182da1",
+        "client": "",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "2f00957d748d7642"
+            ]
+        ]
+    },
+    {
+        "id": "82c0e2e6ed5facb7",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data",
+                "pt": "flow",
+                "to": "{\"puzzle_state\":\"waiting\",\"phone_state\":\"onhook\",\"targetValue\":\"911\",\"sounds\":{\"dialtone\":\"0001\",\"ringing\":\"0002\",\"wrong_number\":\"0003\"}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 260,
+        "y": 80,
+        "wires": [
+            [
+                "fa7ad0a45f66dc87"
+            ]
+        ]
+    },
+    {
+        "id": "5eb71faecf3070e8",
+        "type": "ui_text",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "group": "d92547d1d3175772",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Value",
+        "format": "{{msg.data.currentValue}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1470,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "11070754f439eb45",
+        "type": "ui_text",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "group": "d92547d1d3175772",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Target",
+        "format": "{{msg.data.targetValue}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1470,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2f00957d748d7642",
+        "type": "switch",
+        "z": "32dcaa6a2a049c09",
+        "name": "Handle Message",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "offhook",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "dialing",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "onhook",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "0",
+                "vt": "num",
+                "v2": "15",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "cb18c88496c431ec"
+            ],
+            [
+                "cb18c88496c431ec"
+            ],
+            [
+                "c5b425e9b677359f",
+                "cb18c88496c431ec"
+            ],
+            [
+                "5b30530851c2fe4a"
+            ]
+        ]
+    },
+    {
+        "id": "c5b425e9b677359f",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Reset Phone Number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data.currentValue",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 220,
+        "wires": [
+            [
+                "525fd97cd9a9965e"
+            ]
+        ]
+    },
+    {
+        "id": "5b30530851c2fe4a",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Append Digits",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data.currentValue",
+                "pt": "flow",
+                "to": "$flowContext(\"data.currentValue\") & msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 440,
+        "wires": [
+            [
+                "525fd97cd9a9965e",
+                "5639e4284d67aff1"
+            ]
+        ]
+    },
+    {
+        "id": "cb18c88496c431ec",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Non-Digit Status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data.phone_state",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 180,
+        "wires": [
+            [
+                "7446b1f436458115"
+            ]
+        ]
+    },
+    {
+        "id": "525fd97cd9a9965e",
+        "type": "trigger",
+        "z": "32dcaa6a2a049c09",
+        "g": "b797c0abbbd40c3e",
+        "name": "",
+        "op1": "",
+        "op2": "true",
+        "op1type": "nul",
+        "op2type": "bool",
+        "duration": "4",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "ef52d91ced771b54",
+                "69c78893799d7ed1"
+            ]
+        ]
+    },
+    {
+        "id": "8e06fb34dd5a16a5",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Solve Puzzle",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data.puzzle_state",
+                "pt": "flow",
+                "to": "solved",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 380,
+        "wires": [
+            [
+                "2592125ec3b6372b",
+                "02f8e9e101a45684"
+            ]
+        ]
+    },
+    {
+        "id": "b3b6d61393713fef",
+        "type": "switch",
+        "z": "32dcaa6a2a049c09",
+        "name": "Check Number",
+        "property": "data.currentValue",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "data.targetValue",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 980,
+        "y": 440,
+        "wires": [
+            [
+                "8e06fb34dd5a16a5"
+            ],
+            [
+                "476ca12d91dbf256",
+                "19514f86a929f8a8"
+            ]
+        ]
+    },
+    {
+        "id": "ee72b0527916a3ca",
+        "type": "websocket out",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "",
+        "server": "16133029a5182da1",
+        "client": "",
+        "x": 1200,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "476ca12d91dbf256",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Play Wrong Number",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play 0003",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "data.phone_state",
+                "pt": "flow",
+                "to": "wrong number",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1360,
+        "y": 460,
+        "wires": [
+            [
+                "93c44282890176b0",
+                "02f8e9e101a45684"
+            ]
+        ]
+    },
+    {
+        "id": "2592125ec3b6372b",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Play Success Step 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play 0004",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "data.phone_state",
+                "pt": "flow",
+                "to": "success",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 380,
+        "wires": [
+            [
+                "93c44282890176b0",
+                "49424990df958174",
+                "02f8e9e101a45684"
+            ]
+        ]
+    },
+    {
+        "id": "ef52d91ced771b54",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "g": "b797c0abbbd40c3e",
+        "name": "Play Ringing",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play 0002",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "data.phone_state",
+                "pt": "flow",
+                "to": "ringing",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 500,
+        "wires": [
+            [
+                "93c44282890176b0",
+                "dc411f8d9771f80e"
+            ]
+        ]
+    },
+    {
+        "id": "69c78893799d7ed1",
+        "type": "delay",
+        "z": "32dcaa6a2a049c09",
+        "g": "b797c0abbbd40c3e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "6",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 780,
+        "y": 440,
+        "wires": [
+            [
+                "b3b6d61393713fef"
+            ]
+        ]
+    },
+    {
+        "id": "42be5712bea4e517",
+        "type": "ui_button",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "",
+        "group": "d92547d1d3175772",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Solve",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "play 0005",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 970,
+        "y": 900,
+        "wires": [
+            [
+                "ee72b0527916a3ca",
+                "a11e69c25f4e2f29",
+                "12bb201e847a0b50"
+            ]
+        ]
+    },
+    {
+        "id": "536a3f976fbd1315",
+        "type": "comment",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "Manual Override",
+        "info": "",
+        "x": 1000,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "dd1eecf296b6c86a",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "name": "Dashboard Values",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data",
+                "pt": "msg",
+                "to": "data",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1470,
+        "y": 80,
+        "wires": [
+            [
+                "5eb71faecf3070e8",
+                "11070754f439eb45",
+                "616c206f3e667cbc",
+                "3da4af2372a126a5"
+            ]
+        ]
+    },
+    {
+        "id": "af0270a21bebebf6",
+        "type": "comment",
+        "z": "32dcaa6a2a049c09",
+        "g": "b797c0abbbd40c3e",
+        "name": "Wait for More Digits (Resets Trigger)",
+        "info": "",
+        "x": 710,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "fe5aa7839198e750",
+        "type": "link in",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "name": "Update Dash",
+        "links": [
+            "5639e4284d67aff1",
+            "fa7ad0a45f66dc87",
+            "7446b1f436458115",
+            "02f8e9e101a45684",
+            "c6d45545bd4e22fa",
+            "dc411f8d9771f80e"
+        ],
+        "x": 1325,
+        "y": 80,
+        "wires": [
+            [
+                "dd1eecf296b6c86a"
+            ]
+        ]
+    },
+    {
+        "id": "5639e4284d67aff1",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 435,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "fa7ad0a45f66dc87",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 405,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7446b1f436458115",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 795,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "02f8e9e101a45684",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 1525,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "93c44282890176b0",
+        "type": "websocket out",
+        "z": "32dcaa6a2a049c09",
+        "name": "",
+        "server": "16133029a5182da1",
+        "client": "",
+        "x": 1720,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "19514f86a929f8a8",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "9d44fa466f609e6f"
+        ],
+        "x": 1165,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "9d44fa466f609e6f",
+        "type": "link in",
+        "z": "32dcaa6a2a049c09",
+        "name": "Reset Phone Number",
+        "links": [
+            "19514f86a929f8a8",
+            "12bb201e847a0b50"
+        ],
+        "x": 475,
+        "y": 300,
+        "wires": [
+            [
+                "c5b425e9b677359f"
+            ]
+        ]
+    },
+    {
+        "id": "616c206f3e667cbc",
+        "type": "ui_text",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "group": "d92547d1d3175772",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Phone Status",
+        "format": "{{msg.data.phone_state}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1500,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "3da4af2372a126a5",
+        "type": "ui_text",
+        "z": "32dcaa6a2a049c09",
+        "g": "1105262701080987",
+        "group": "d92547d1d3175772",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Puzzle State",
+        "format": "{{msg.data.puzzle_state}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1650,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3c3693fb523e79a9",
+        "type": "ui_dropdown",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "",
+        "label": "Play Audio",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "d92547d1d3175772",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Dialtone",
+                "value": "play 0001",
+                "type": "str"
+            },
+            {
+                "label": "Ringing",
+                "value": "play 0002",
+                "type": "str"
+            },
+            {
+                "label": "Wrong Number",
+                "value": "play 0003",
+                "type": "str"
+            },
+            {
+                "label": "Answering 1",
+                "value": "play 0004",
+                "type": "str"
+            },
+            {
+                "label": "Appt Confirmed",
+                "value": "play 0005",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "payload",
+        "topicType": "msg",
+        "className": "",
+        "x": 990,
+        "y": 800,
+        "wires": [
+            [
+                "ee72b0527916a3ca"
+            ]
+        ]
+    },
+    {
+        "id": "49424990df958174",
+        "type": "delay",
+        "z": "32dcaa6a2a049c09",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1660,
+        "y": 380,
+        "wires": [
+            [
+                "40456ac53f6831d9"
+            ]
+        ]
+    },
+    {
+        "id": "40456ac53f6831d9",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "name": "Play Success Step 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "play 0005",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1860,
+        "y": 380,
+        "wires": [
+            [
+                "93c44282890176b0"
+            ]
+        ]
+    },
+    {
+        "id": "434bf6b842a2c02c",
+        "type": "ui_button",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "",
+        "group": "d92547d1d3175772",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Stop Audio",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1190,
+        "y": 740,
+        "wires": [
+            [
+                "ee72b0527916a3ca"
+            ]
+        ]
+    },
+    {
+        "id": "a11e69c25f4e2f29",
+        "type": "change",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "Solve Puzzle",
+        "rules": [
+            {
+                "t": "set",
+                "p": "data.puzzle_state",
+                "pt": "flow",
+                "to": "solved",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 900,
+        "wires": [
+            [
+                "c6d45545bd4e22fa"
+            ]
+        ]
+    },
+    {
+        "id": "c6d45545bd4e22fa",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 1305,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "12bb201e847a0b50",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "9d44fa466f609e6f"
+        ],
+        "x": 1125,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "d474ebe80834e6a7",
+        "type": "comment",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "Reset Trigger",
+        "info": "",
+        "x": 1210,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "dc411f8d9771f80e",
+        "type": "link out",
+        "z": "32dcaa6a2a049c09",
+        "g": "b797c0abbbd40c3e",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "fe5aa7839198e750"
+        ],
+        "x": 835,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "8ae54fdc776bea0e",
+        "type": "ui_button",
+        "z": "32dcaa6a2a049c09",
+        "g": "8ce9871792fa0c4a",
+        "name": "",
+        "group": "d92547d1d3175772",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Volume",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "volume 0008",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 1180,
+        "y": 780,
+        "wires": [
+            [
+                "ee72b0527916a3ca"
+            ]
+        ]
+    },
+    {
+        "id": "16133029a5182da1",
+        "type": "websocket-listener",
+        "path": "/ws/telephone",
+        "wholemsg": "false"
+    },
+    {
+        "id": "d92547d1d3175772",
+        "type": "ui_group",
+        "name": "Telephone",
+        "tab": "bb4c7b6e169cd665",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bb4c7b6e169cd665",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
